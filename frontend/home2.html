@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartMatch | AI-Powered Recruitment</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Inline CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+    }
+
+    .sidebar {
+      background-color: #1f1f2e;
+      color: white;
+      width: 250px;
+      padding: 20px;
+      height: 100vh;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+      width: 60px;
+    }
+
+    .sidebar .logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar .logo h2 {
+      margin: 0;
+    }
+
+    .sidebar .logo span {
+      color: #00f0ff;
+    }
+
+    .sidebar .nav-links {
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    .sidebar .nav-links li {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 50px 0;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      color: #1f1f2e;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 12px 24px;
+      margin: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #1f1f2e;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid #1f1f2e;
+      color: #1f1f2e;
+    }
+
+    .hero-graphic img {
+      max-width: 500px;
+      height: auto;
+    }
+
+    .features {
+      margin-top: 60px;
+    }
+
+    .features h2 {
+      font-size: 32px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background-color: #f8f8f8;
+      padding: 20px;
+      width: 280px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .feature-card i {
+      font-size: 32px;
+      color: #1f1f2e;
+      margin-bottom: 10px;
+    }
+
+    .demo-section {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .demo-section video {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+      background-color: #1f1f2e;
+      color: white;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <h2>Ro<span>Tech</span></h2>
+      <button id="toggleBtn"><i class="fas fa-bars"></i></button>
+    </div>
+    <ul class="nav-links">
+      <li><i class="fas fa-home"></i><span>Dashboard</span></li>
+      <li><i class="fas fa-file-alt"></i><span>Applications</span></li>
+      <li><i class="fas fa-search"></i><span>Candidate Search</span></li>
+      <li><i class="fas fa-users"></i><span>Teams</span></li>
+      <li><i class="fas fa-cog"></i><span>Settings</span></li>
+      <li><i class="fas fa-sign-out-alt"></i><span>Logout</span></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-heading"><span id="typewriter"></span></h1>
+        <p>AI-powered resume analysis & smart applicant matching, tailored for modern HR teams.</p>
+        <div class="cta">
+          <a href="/login" class="btn-primary">Launch Dashboard</a>
+          <a href="#demo" class="btn-secondary">View Live Demo</a>
+        </div>
+      </div>
+      <div class="hero-graphic">
+        <img src="image.png" alt="SmartMatch dashboard preview">
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <h2>What makes SmartMatch Powerful</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-robot"></i>
+          <h3>AI Categorization</h3>
+          <p>Instantly sort resumes into Good, Maybe, and Not Fit using cutting-edge models.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-cogs"></i>
+          <h3>Customizable Filters</h3>
+          <p>Change criteria on-the-fly. No code needed. Just click, type, and re-analyze.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Smart Summaries</h3>
+          <p>Get AI-generated insights that summarize applicant relevance for each role.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+      <h2>Live in Action</h2>
+      <video src="demo_preview.mp4" controls muted autoplay loop></video>
+    </section>
+
+    <footer id="contact" class="footer">
+      <p>Crafted with ❤️ by SmartMatch Team • &copy; 2025</p>
+    </footer>
+  </div>
+
+  <!-- Inline JS -->
+  <script>
+    // Typewriter animation
+    const target = document.getElementById("typewriter");
+    const text = "Recruitment, Reinvented.";
+    let index = 0;
+    let isDeleting = false;
+
+    function typeLoop() {
+      target.textContent = text.substring(0, index);
+      if (!isDeleting && index < text.length) {
+        index++;
+        setTimeout(typeLoop, 100);
+      } else if (isDeleting && index > 0) {
+        index--;
+        setTimeout(typeLoop, 50);
+      } else {
+        isDeleting = !isDeleting;
+        setTimeout(typeLoop, isDeleting ? 1000 : 500);
+      }
+    }
+    typeLoop();
+
+    // Sidebar toggle
+    const toggleBtn = document.getElementById("toggleBtn");
+    const sidebar = document.getElementById("sidebar");
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+    });
+  </script>
+</body>
+</html>

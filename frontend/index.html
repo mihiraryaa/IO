@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch - AI-Powered Resume Screening</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-file-search"></i>
+                ResuMatch
+            </div>
+        </header>
+
+        <div class="prompt-container">
+            <h2 class="prompt-title">Describe Your Ideal Candidate</h2>
+            <p class="prompt-description">Enter the job description or specific requirements you're looking for in candidates.</p>
+            
+            <textarea id="jobDescription" class="prompt-input" placeholder="e.g. Looking for a senior software engineer with 5+ years of experience in React.js, Node.js, and AWS. Must have strong communication skills and experience leading small teams."></textarea>
+            
+            <div class="prompt-examples">
+                Try these examples:
+                <div class="prompt-example" onclick="useExample(this)">Senior Developer with React & AWS</div>
+                <div class="prompt-example" onclick="useExample(this)">Marketing Manager with 3+ years experience</div>
+                <div class="prompt-example" onclick="useExample(this)">Data Scientist with ML expertise</div>
+                <div class="prompt-example" onclick="useExample(this)">Product Manager with UX background</div>
+            </div>
+            
+            <div class="button-container">
+                <button id="analyzeButton" class="button" onclick="analyzeResumes()">
+                    <span>Find Matches</span>
+                    <div id="loader" class="loader"></div>
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="resultsContainer" class="results-container">
+            <div class="no-results">
+                <div class="no-results-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="no-results-title">No Results Yet</h3>
+                <p class="no-results-text">Enter a job description and click "Find Matches" to see candidate matches.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="connection-status">
+        <span>Disconnected</span>
+        <div class="status-dot"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html> 
