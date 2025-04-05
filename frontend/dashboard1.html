@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartMatch Ultimate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        /* Navigation Sidebar */
+        .nav-sidebar {
+            width: 250px;
+            background: #0f172a;
+            padding: 25px;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transform: translateX(-100%);
+            animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .nav-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #1e293b;
+        }
+
+        /* Filter Sidebar */
+        .filter-sidebar {
+            width: 300px;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.05);
+            position: fixed;
+            right: 0;
+            height: 100vh;
+            transform: translateX(100%);
+            animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        .filter-group {
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0f172a;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: #f1f5f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-item:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px 320px 30px 280px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* Animated Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.7s;
+        }
+
+        .candidate-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.95);
+        }
+
+        .candidate-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,123,255,0.1);
+        }
+
+        .status-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .good-fit { background: #e3fcef; color: #006644; }
+        .maybe-fit { background: #fff8e5; color: #8a4d00; }
+        .not-fit { background: #fbe9e9; color: #bf0000; }
+
+        .candidate-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .candidate-role {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 4px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            width: 90%;
+            max-width: 1400px; /* Increased max-width */
+            margin: 5vh auto;
+            border-radius: 20px;
+            padding: 30px;
+            transform: scale(0.95);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: grid;
+            grid-template-columns: 1fr 350px; /* Two-column layout */
+            gap: 30px;
+            max-height: 90vh;
+        }
+
+        .main-modal-content {
+            overflow-y: auto;
+            padding-right: 20px;
+            max-height: 80vh;
+        }
+        .chat-sidebar {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border-left: 2px solid #f1f5f9;
+            padding-left: 20px;
+        }
+
+        /* Adjust tab styles */
+        .modal-tabs {
+            display: flex;
+            gap: 15px;
+            margin: 0 0 20px 0;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        /* Adjust analytics grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Chat container adjustments */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            height: calc(100% - 60px);
+        }
+        /* Analytics Charts */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .chart-container {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            height: 300px;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 12px 18px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: messageIn 0.3s ease-out;
+        }
+
+        .bot-message {
+            background: #e8f4ff;
+            border: 1px solid #007bff33;
+        }
+
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        /* Tabs */
+        .modal-tabs {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .scrollable-content {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        .project-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-category {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        /* New Search Prompt Styles */
+        .search-prompt-container {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 300px;
+            background: white;
+            padding: 15px 25px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            z-index: 900;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .search-prompt {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .search-prompt:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+            background: white;
+        }
+
+        .search-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .search-button:hover {
+            background: #0069d9;
+        }
+
+        .search-examples {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .search-examples span {
+            cursor: pointer;
+            text-decoration: underline;
+            margin: 0 5px;
+        }
+         /* Adjust main content to account for fixed search */
+         .main-content {
+            flex: 1;
+            padding: 100px 320px 30px 280px; /* Increased top padding */
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            to { transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <nav class="nav-sidebar">
+        <div class="logo">SmartMatch</div>
+        <div class="nav-item"><i class="fas fa-home"></i> Dashboard</div>
+        <div class="nav-item"><i class="fas fa-briefcase"></i> Job Listings</div>
+        <div class="nav-item"><i class="fas fa-cog"></i> Settings</div>
+    </nav>
+    <!-- New AI Search Prompt -->
+    <div class="search-prompt-container">
+        <div style="flex: 1;">
+            <input type="text" class="search-prompt" placeholder="Describe your ideal candidate (e.g. 'Senior Python developer with AWS experience and leadership skills')">
+            <div class="search-examples">
+                Try: <span>"5+ years React experience"</span> | 
+                <span>"PMP certified project managers"</span> | 
+                <span>"AI researchers with PhD"</span>
+            </div>
+        </div>
+        <button class="search-button">Find Candidates</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="card-grid">
+            <!-- Candidate Card 1 -->
+            <div class="candidate-card">
+                <div class="status-badge good-fit">Good Fit</div>
+                <h2 class="candidate-name">John Doe</h2>
+                <div class="candidate-role">Senior Engineer</div>
+                <div class="candidate-summary">
+                    10+ years experience in AI/ML development. Led 5+ enterprise cloud migrations.
+                    Strong Python/GoLang expertise. Certified AWS Solutions Architect.
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">AI/ML</span>
+                    <span class="skill-tag">AWS</span>
+                </div>
+            </div>
+
+            <!-- Candidate Card 2 -->
+            <div class="candidate-card">
+                <div class="status-badge maybe-fit">Maybe Fit</div>
+                <h2 class="candidate-name">Jane Smith</h2>
+                <div class="candidate-role">Project Manager</div>
+                <div class="candidate-summary">
+                    Agile expert with 8 years in tech project management. PMP certified.
+                    Managed teams up to 50 members. Needs more technical depth.
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Agile</span>
+                    <span class="skill-tag">Leadership</span>
+                    <span class="skill-tag">JIRA</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Filter Sidebar -->
+    <aside class="filter-sidebar">
+        <h2 class="filter-title">Filters</h2>
+        <div class="filter-group">
+            <input type="text" class="search-bar" placeholder="Search candidates...">
+        </div>
+        <div class="filter-group">
+            <h3 class="filter-title">Fit Category</h3>
+            <div class="filter-item">Good Fit</div>
+            <div class="filter-item">Maybe Fit</div>
+            <div class="filter-item">Not a Fit</div>
+        </div>
+        <div class="filter-group">
+            <h3 class="filter-title">Skills</h3>
+            <div class="filter-item">Python</div>
+            <div class="filter-item">AI/ML</div>
+            <div class="filter-item">React</div>
+            <div class="filter-item">Leadership</div>
+        </div>
+    </aside>
+
+     <!-- Modal Popup with Analytics and Chat -->
+     <div class="modal-overlay">
+      <div class="modal-content">
+          <div class="main-modal-content">
+              <div class="modal-header">
+                  <h2>John Doe - Senior Engineer</h2>
+                  <button onclick="closeModal()">&times;</button>
+              </div>
+
+              <!-- Tabs Navigation -->
+              <div class="modal-tabs">
+                  <button class="tab-button active" onclick="switchTab('analytics')">Analytics</button>
+                  <button class="tab-button" onclick="switchTab('skills')">Skills</button>
+                  <button class="tab-button" onclick="switchTab('projects')">Projects</button>
+              </div>
+
+              <!-- Tab Contents -->
+              <div>
+                  <!-- Analytics Tab -->
+                  <div id="analytics" class="tab-content active">
+                      <div class="analytics-grid">
+                          <div class="chart-container">
+                              <canvas id="skillsRadar"></canvas>
+                          </div>
+                          <div class="chart-container">
+                              <canvas id="experienceChart"></canvas>
+                          </div>
+                          <div class="chart-container">
+                              <canvas id="skillDistribution"></canvas>
+                          </div>
+                          <div class="chart-container">
+                              <canvas id="cultureFit"></canvas>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Skills Tab -->
+                  <div id="skills" class="tab-content">
+                      <div class="skills-grid">
+                          <div class="skill-category">
+                              <h3>Technical Skills</h3>
+                              <p>Python (Expert)<br>GoLang (Advanced)<br>AWS (Advanced)<br>Docker (Advanced)</p>
+                          </div>
+                          <div class="skill-category">
+                              <h3>Leadership</h3>
+                              <p>Team Management<br>Project Planning<br>Stakeholder Communication<br>Agile Methodology</p>
+                          </div>
+                          <div class="skill-category">
+                              <h3>Certifications</h3>
+                              <p>AWS Solutions Architect<br>PMP Certification<br>Google Cloud Professional</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Projects Tab -->
+                  <div id="projects" class="tab-content">
+                      <div class="project-card">
+                          <h3>AI Supply Chain Optimization</h3>
+                          <p>Led development of ML-powered inventory management system reducing waste by 40%</p>
+                      </div>
+                      <div class="project-card">
+                          <h3>Cloud Migration Framework</h3>
+                          <p>Architected enterprise migration strategy for Fortune 500 company</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Fixed Chat Sidebar -->
+          <div class="chat-sidebar">
+              <div class="chat-container">
+                  <h3>Candidate Analysis</h3>
+                  <div class="chat-messages" id="chatMessages">
+                      <div class="message bot-message">
+                          I can analyze John's resume, compare skills with job requirements, 
+                          and predict cultural fit. Ask me anything!
+                      </div>
+                  </div>
+                  <div class="chat-input">
+                      <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)">
+                      <button class="send-btn" onclick="sendMessage()">
+                          <i class="fas fa-paper-plane"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <script>
+      // New Search Functionality
+      document.querySelector('.search-button').addEventListener('click', performSearch);
+        document.querySelectorAll('.search-examples span').forEach(example => {
+            example.addEventListener('click', function() {
+                document.querySelector('.search-prompt').value = this.textContent;
+                performSearch();
+            });
+        });
+
+        function performSearch() {
+            const query = document.querySelector('.search-prompt').value.trim();
+            if(query) {
+                // Here you would integrate with your LLM system
+                console.log("Searching for:", query);
+                
+                // Simulate loading
+                const cards = document.querySelectorAll('.candidate-card');
+                cards.forEach(card => card.style.opacity = '0.5');
+                
+                // Simulate API call to your backend
+                setTimeout(() => {
+                    // This is where you would filter candidates based on LLM results
+                    cards.forEach(card => card.style.opacity = '1');
+                    
+                    // For demo purposes, we'll just show all cards
+                    // In real implementation, you would filter based on LLM response
+                }, 1000);
+            }
+        }
+        // Initialize Charts
+        function initCharts() {
+            // Skills Radar Chart
+            new Chart(document.getElementById('skillsRadar'), {
+                type: 'radar',
+                data: {
+                    labels: ['Technical', 'Experience', 'Education', 'Culture Fit', 'Communication'],
+                    datasets: [{
+                        label: 'Skill Level',
+                        data: [92, 88, 85, 90, 87],
+                        backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                        borderColor: '#007bff',
+                        pointBackgroundColor: '#007bff'
+                    }]
+                }
+            });
+
+            // Experience Line Chart
+            new Chart(document.getElementById('experienceChart'), {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Career Progression',
+                        data: [70, 75, 82, 85, 88, 92],
+                        borderColor: '#007bff',
+                        fill: false,
+                        tension: 0.4
+                    }]
+                }
+            });
+
+            // Skill Distribution Pie Chart
+            new Chart(document.getElementById('skillDistribution'), {
+                type: 'pie',
+                data: {
+                    labels: ['Technical', 'Management', 'Communication'],
+                    datasets: [{
+                        data: [75, 15, 10],
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107']
+                    }]
+                }
+            });
+
+            // Culture Fit Bar Chart
+            new Chart(document.getElementById('cultureFit'), {
+                type: 'bar',
+                data: {
+                    labels: ['Team Fit', 'Values', 'Work Style'],
+                    datasets: [{
+                        label: 'Culture Fit Score',
+                        data: [88, 92, 85],
+                        backgroundColor: '#007bff'
+                    }]
+                }
+            });
+        }
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Switch tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Re-initialize charts if switching to analytics tab
+            if(tabName === 'analytics') {
+                initCharts();
+            }
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') sendMessage();
+        }
+
+        // Chat Functionality
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            
+            if(input.value.trim()) {
+                // User message
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-message';
+                userDiv.textContent = input.value;
+                messages.appendChild(userDiv);
+
+                // Simulated bot response
+                setTimeout(() => {
+                    const botDiv = document.createElement('div');
+                    botDiv.className = 'message bot-message';
+                    botDiv.innerHTML = generateBotResponse(input.value);
+                    messages.appendChild(botDiv);
+                    messages.scrollTop = messages.scrollHeight;
+                }, 800);
+
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+
+        function generateBotResponse(question) {
+            const responses = {
+                skills: "<strong>Technical Skills Breakdown:</strong><br>" +
+                        "- Python: 10+ years experience<br>" +
+                        "- Cloud Architecture: 8+ large implementations<br>" +
+                        "- Team Leadership: Managed 20+ engineers",
+                experience: "<strong>Career Progression:</strong><br>" +
+                            "2018: Senior Developer → 2020: Tech Lead → 2022: Engineering Manager",
+                projects: "<strong>Key Projects:</strong><br>" +
+                          "1. AI Inventory System (Saved $2.4M annually)<br>" +
+                          "2. Cloud Migration Framework (50% faster deployments)",
+                default: "<strong>I can analyze:</strong><br>" +
+                         "- Skill matches with job requirements<br>" +
+                         "- Cultural fit predictions<br>" +
+                         "- Career progression patterns<br>" +
+                         "Ask me specific questions!"
+            };
+
+            question = question.toLowerCase();
+            return question.includes('skill') ? responses.skills :
+                   question.includes('experience') ? responses.experience :
+                   question.includes('project') ? responses.projects :
+                   responses.default;
+        }
+
+        // Modal Handling
+        function openModal() {
+            document.querySelector('.modal-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.querySelector('.modal-overlay').style.opacity = 1;
+                document.querySelector('.modal-content').style.transform = 'scale(1)';
+                initCharts();
+            }, 10);
+        }
+
+        function closeModal() {
+            document.querySelector('.modal-overlay').style.opacity = 0;
+            document.querySelector('.modal-content').style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                document.querySelector('.modal-overlay').style.display = 'none';
+            }, 500);
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.candidate-card').forEach(card => {
+            card.addEventListener('click', openModal);
+        });
+
+        document.querySelector('.modal-overlay').addEventListener('click', (e) => {
+            if(e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Initialize animations
+        document.querySelectorAll('.candidate-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
