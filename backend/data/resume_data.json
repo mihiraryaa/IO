@@ -1,0 +1,63 @@
+[
+    {
+      "name": "Aarav Mehta",
+      "email": "aarav.mehta@example.com",
+      "phone": "+91 9876543210",
+      "resume_text": "# Aarav Mehta\n\n**Email:** aarav.mehta@example.com  \n**Phone:** +91 9876543210\n\n## Education\n- **B.Tech in Computer Science**, IIT Bombay (2023)\n\n## Experience\n- **Software Engineer Intern**, TCS  \n  *Jan 2023 – Jun 2023*  \n  - Worked on full-stack features for internal tools\n  - Improved backend performance by 18%\n\n## Skills\n- Python, Django, React, SQL\n\n## Projects\n### E-commerce Web App\n- Built a scalable shopping platform using Django and React.\n- Integrated payment gateway and authentication."
+    },
+    {
+      "name": "Sneha Kapoor",
+      "email": "sneha.kapoor@example.com",
+      "phone": "+91 9123456780",
+      "resume_text": "# Sneha Kapoor\n\n**Email:** sneha.kapoor@example.com  \n**Phone:** +91 9123456780\n\n## Education\n- **MCA**, Delhi University (2022)\n\n## Experience\n- **Frontend Developer**, Infosys  \n  *Jul 2022 – Present*  \n  - Developed reusable UI components using Vue.js\n  - Boosted performance on mobile by 30%\n\n## Skills\n- JavaScript, Vue.js, HTML, CSS\n\n## Projects\n### Portfolio Website\n- Created a responsive personal website with animations using Vue.js and Tailwind CSS."
+    },
+    {
+      "name": "Rahul Singh",
+      "email": "rahul.singh@example.com",
+      "phone": "+91 9988776655",
+      "resume_text": "# Rahul Singh\n\n**Email:** rahul.singh@example.com  \n**Phone:** +91 9988776655\n\n## Education\n- **B.Sc in Data Science**, IISc Bangalore (2021)\n\n## Experience\n- **Data Analyst**, Wipro  \n  *Aug 2021 – Present*  \n  - Designed dashboards using Tableau for real-time insights\n  - Automated monthly reporting with Python scripts\n\n## Skills\n- Python, Pandas, Tableau, SQL\n\n## Projects\n### Sales Dashboard\n- Built an interactive Tableau dashboard to track sales KPIs across regions and timeframes."
+    },
+    {
+      "name": "Priya Desai",
+      "email": "priya.desai@example.com",
+      "phone": "+91 9090909090",
+      "resume_text": "# Priya Desai\n\n**Email:** priya.desai@example.com  \n**Phone:** +91 9090909090\n\n## Education\n- **B.E. in Electronics**, BITS Pilani (2020)\n\n## Experience\n- **Embedded Systems Engineer**, Bosch  \n  *Sep 2020 – Present*  \n  - Developed firmware for automotive control units\n  - Worked with CAN protocols and RTOS environments\n\n## Skills\n- C, C++, MATLAB, RTOS\n\n## Projects\n### Smart Irrigation System\n- Designed an IoT-based solution using microcontrollers and sensors to automate irrigation."
+    },
+    {
+      "name": "Karan Verma",
+      "email": "karan.verma@example.com",
+      "phone": "+91 8888888888",
+      "resume_text": "# Karan Verma\n\n**Email:** karan.verma@example.com  \n**Phone:** +91 8888888888\n\n## Education\n- **B.Tech in IT**, VIT Vellore (2022)\n\n## Experience\n- **Backend Developer**, Zoho  \n  *Jul 2022 – Present*  \n  - Built REST APIs using Spring Boot and secured endpoints\n  - Optimized queries and reduced DB latency by 25%\n\n## Skills\n- Java, Spring Boot, MySQL, Redis\n\n## Projects\n### Authentication Service\n- Developed JWT-based microservice for user login with role-based access."
+    },
+    {
+      "name": "Ananya Roy",
+      "email": "ananya.roy@example.com",
+      "phone": "+91 9812345678",
+      "resume_text": "# Ananya Roy\n\n**Email:** ananya.roy@example.com  \n**Phone:** +91 9812345678\n\n## Education\n- **BCA**, Jadavpur University (2021)\n\n## Experience\n- **Full Stack Developer**, Tech Mahindra  \n  *Sep 2021 – Present*  \n  - Built scalable applications using MERN stack\n  - Implemented CI/CD pipeline for auto-deployment\n\n## Skills\n- Node.js, Angular, MongoDB, Express.js\n\n## Projects\n### Blog Platform\n- Created a full-featured blog app with admin panel and user comments."
+    },
+    {
+      "name": "Nikhil Sharma",
+      "email": "nikhil.sharma@example.com",
+      "phone": "+91 9800012345",
+      "resume_text": "# Nikhil Sharma\n\n**Email:** nikhil.sharma@example.com  \n**Phone:** +91 9800012345\n\n## Education\n- **B.Tech in Mechanical Engineering**, IIT Kanpur (2019)\n\n## Experience\n- **Product Manager**, L&T  \n  *Aug 2019 – Present*  \n  - Defined roadmap and collaborated with cross-functional teams\n  - Delivered 4 product launches ahead of deadlines\n\n## Skills\n- Product Strategy, Agile, JIRA, Analytics\n\n## Projects\n### CRM Optimization\n- Spearheaded analytics integration into CRM to improve customer segmentation and retention."
+    },
+    {
+      "name": "Meera Iyer",
+      "email": "meera.iyer@example.com",
+      "phone": "+91 9753124680",
+      "resume_text": "# Meera Iyer\n\n**Email:** meera.iyer@example.com  \n**Phone:** +91 9753124680\n\n## Education\n- **M.Tech in AI**, IIT Madras (2023)\n\n## Experience\n- **AI Research Intern**, Samsung R&D  \n  *Jan 2023 – Jun 2023*  \n  - Developed NLP pipelines for internal document classification\n  - Experimented with BERT and fine-tuned transformer models\n\n## Skills\n- TensorFlow, PyTorch, NLP, Computer Vision\n\n## Projects\n### Fake News Detector\n- Created a transformer-based model to detect fake news in online articles."
+    },
+    {
+      "name": "Rohit Menon",
+      "email": "rohit.menon@example.com",
+      "phone": "+91 9600000000",
+      "resume_text": "# Rohit Menon\n\n**Email:** rohit.menon@example.com  \n**Phone:** +91 9600000000\n\n## Education\n- **B.Tech in Electrical Engineering**, NIT Trichy (2020)\n\n## Experience\n- **Data Engineer**, Accenture  \n  *Aug 2020 – Present*  \n  - Built ETL pipelines using Spark and Kafka\n  - Migrated on-prem data to AWS data lakes\n\n## Skills\n- Spark, Kafka, Python, ETL Pipelines\n\n## Projects\n### Data Lake System\n- Designed real-time ingestion architecture for streaming analytics using AWS and Kafka."
+    },
+    {
+      "name": "Tanvi Shah",
+      "email": "tanvi.shah@example.com",
+      "phone": "+91 9555555555",
+      "resume_text": "# Tanvi Shah\n\n**Email:** tanvi.shah@example.com  \n**Phone:** +91 9555555555\n\n## Education\n- **BBA**, NMIMS Mumbai (2021)\n\n## Experience\n- **Marketing Analyst**, Deloitte  \n  *Jul 2021 – Present*  \n  - Conducted market segmentation analysis\n  - Created BI dashboards for campaign tracking\n\n## Skills\n- Excel, Power BI, SQL, Market Research\n\n## Projects\n### Customer Insights Dashboard\n- Built Power BI dashboards to visualize customer demographics and behavior patterns."
+    }
+  ]
+  
