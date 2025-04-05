@@ -1,0 +1,32 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1 123-456-7890",
+    "resume_text": "# John Doe\n\n**Email:** john.doe@example.com\n**Phone:** +1 123-456-7890\n\n## Education\n- **Masters in Computer Science**, Stanford University (2018)\n- **Bachelors in Software Engineering**, MIT (2016)\n\n## Experience\n- **Senior Software Engineer**, Google\n  *2020 - Present*\n  - Led development of cloud-based services using React and AWS\n  - Managed a team of 5 developers across multiple projects\n  - Implemented CI/CD pipeline reducing deployment time by 40%\n\n- **Software Developer**, Microsoft\n  *2018 - 2020*\n  - Developed frontend components using React and Redux\n  - Collaborated with UX team to improve customer experience\n\n## Skills\n- JavaScript, TypeScript, React, Node.js\n- AWS (Lambda, EC2, S3, CloudFront)\n- CI/CD, Docker, Kubernetes\n- Team Leadership, Agile Methodologies"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "phone": "+1 987-654-3210",
+    "resume_text": "# Jane Smith\n\n**Email:** jane.smith@example.com\n**Phone:** +1 987-654-3210\n\n## Education\n- **PhD in Data Science**, Harvard University (2019)\n- **Masters in Statistics**, University of Chicago (2016)\n\n## Experience\n- **Data Scientist**, Netflix\n  *2019 - Present*\n  - Built ML models for content recommendation improving watch time by 15%\n  - Implemented NLP algorithms for content tagging\n  - Led a team of 3 data scientists on A/B testing initiatives\n\n- **Data Analyst**, Amazon\n  *2016 - 2019*\n  - Analyzed customer behavior using Python and SQL\n  - Created visualization dashboards using Tableau\n\n## Skills\n- Python, R, SQL, TensorFlow, PyTorch\n- Machine Learning, Deep Learning, NLP\n- Data Visualization, Statistical Analysis\n- Team Coordination, Project Management"
+  },
+  {
+    "name": "Robert Johnson",
+    "email": "robert.johnson@example.com",
+    "phone": "+1 555-123-4567",
+    "resume_text": "# Robert Johnson\n\n**Email:** robert.johnson@example.com\n**Phone:** +1 555-123-4567\n\n## Education\n- **Bachelors in Marketing**, NYU (2015)\n\n## Experience\n- **Marketing Manager**, Nike\n  *2018 - Present*\n  - Developed marketing strategies increasing annual sales by 25%\n  - Led social media campaigns with 3M+ engagements\n  - Managed marketing budget of $1.5M\n\n- **Marketing Specialist**, Adidas\n  *2015 - 2018*\n  - Assisted in brand development and campaign creation\n  - Conducted market research and competitor analysis\n\n## Skills\n- Digital Marketing, Brand Management\n- Social Media Strategy, Content Creation\n- Market Research, SEO/SEM\n- Adobe Creative Suite, Google Analytics"
+  },
+  {
+    "name": "Sophia Chen",
+    "email": "sophia.chen@example.com",
+    "phone": "+1 222-333-4444",
+    "resume_text": "# Sophia Chen\n\n**Email:** sophia.chen@example.com\n**Phone:** +1 222-333-4444\n\n## Education\n- **Masters in Product Design**, RISD (2017)\n- **Bachelors in Graphic Design**, Parsons School of Design (2015)\n\n## Experience\n- **UX/UI Designer**, Apple\n  *2019 - Present*\n  - Designed user interfaces for mobile applications\n  - Conducted user research and created user personas\n  - Collaborated with engineering teams to implement designs\n\n- **Product Designer**, Samsung\n  *2017 - 2019*\n  - Created wireframes and prototypes for consumer products\n  - Facilitated design thinking workshops\n\n## Skills\n- User Interface Design, User Experience Research\n- Figma, Sketch, Adobe XD\n- Wireframing, Prototyping\n- Design Systems, Accessibility Standards"
+  },
+  {
+    "name": "Michael Williams",
+    "email": "michael.williams@example.com",
+    "phone": "+1 777-888-9999",
+    "resume_text": "# Michael Williams\n\n**Email:** michael.williams@example.com\n**Phone:** +1 777-888-9999\n\n## Education\n- **MBA**, Wharton School of Business (2014)\n- **Bachelors in Finance**, University of Texas (2011)\n\n## Experience\n- **Product Manager**, Facebook\n  *2017 - Present*\n  - Led cross-functional teams to launch 5 new product features\n  - Defined product roadmaps and prioritized feature backlog\n  - Conducted market analysis to identify growth opportunities\n\n- **Business Analyst**, Oracle\n  *2014 - 2017*\n  - Analyzed business requirements and translated to technical specifications\n  - Created financial models and ROI projections\n\n## Skills\n- Product Strategy, Product Development\n- Market Research, Competitive Analysis\n- JIRA, Confluence, Asana\n- Data Analytics, SQL, Excel"
+  }
+] 
